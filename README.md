@@ -2,7 +2,8 @@
 Supplementary material consisting of GPJax code for the paper in the title.
 
 The code does **not** include MATLAB code for the underwater magnetic field experiment - we do however include code for the hyperparameter optimization of that data set. The prediction plots are are also easily reproduced by the code contained here, but the timings are unfortunately not.
-All necessary data files are also included - these may **not** be distributed further, they are included for completeness.
+The necessary data files for the precipitation and underwater data sets are unfortunately not included.
+Please contact the authors of this repo for access to those data sets.
 
 # Running the code
 It is highly recommended to build the Docker image defined by the Dockerfile - see [Docker image](#docker-image).
