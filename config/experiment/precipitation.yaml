@@ -1,0 +1,41 @@
+# @package _global_
+defaults:
+  - /alg: SHGP
+  - _self_
+
+hydra:
+  sweeper:
+    params:
+      alg: choice(SHGP, HGP)
+      bf.m: range(5, 66, 5)
+
+generator: fasthgp.examples.precipitation
+
+kernel:
+  _target_: fasthgp.kernels.SE
+  lengthscale: 1.0
+  variance: 10.0
+
+prior:
+  _target_: gpjax.gps.Prior
+  mean_function:
+    _target_: gpjax.mean_functions.Zero
+  kernel: ${..kernel}
+
+likelihood:
+  _target_: gpjax.likelihoods.Gaussian
+  num_datapoints: ${..N}
+  obs_stddev: 
+    _target_: jax.numpy.array
+    object: [1.0]
+
+bf:
+  _target_: ${generator}.build_bf
+  m: 5
+  D: 
+    _target_: ${generator}.generate_data
+
+N: 5776
+data_generator: 
+  _partial_: true
+  _target_: ${..generator}.generate_data
